@@ -49,7 +49,7 @@
                 <div class="windows_top_left">欢迎乘坐特快列车</div>
                 <div class="windows_top_right">DEMO VERSION</div>
             </div>
-            <div class="windows_body">
+            <div class="windows_body" id="chat-window" v-scroll-bottom>
                 <ul class="am-comments-list am-comments-list-flip">
                     <template v-for="chat in roomChat">
                         <article class="am-comment" :class="{ 'am-comment-flip' : chat.fd == currentUser.userFd }">
@@ -205,11 +205,15 @@
             }
         },
         computed: {
-            currentUserClass(fd) {
-                console.warn(fd)
-            },
             currentCount() {
                 return Object.getOwnPropertyNames(this.roomUser).length - 1;
+            }
+        },
+        directives: {
+            scrollBottom: {
+                componentUpdated: function (el) {
+                    el.scrollTop = el.scrollHeight
+                }
             }
         }
     });
